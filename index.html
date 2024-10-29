@@ -5,12 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <title>AFK Academy</title>
 </head>
 <body>
     <div id="app">
-        
+        <header id="header">
+            <div id="logo-container">
+                <img id="logo" src="images/afk-academy-high-resolution-logo-transparent.png">
+            </div>
+            <div id="searchbar-container">
+                <input id="search-bar" type="text" placeholder="Search...">
+                <i class="search-icon fa-solid fa-magnifying-glass"></i>
+            </div>
+            <div id="cart-icon-container">
+                <p id="cart-count"> 0 </p>
+                <i class="cart-icon fa-solid fa-cart-shopping"></i>
+            </div>
+        </header>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
