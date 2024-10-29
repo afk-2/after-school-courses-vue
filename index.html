@@ -38,6 +38,11 @@
                         <p class="course-subject"><span>Subject:</span> {{ course.subject }}</p>
                         <p class="course-location"><span>Location:</span> {{ course.location }}</p>
                         <p class="course-spaces"><span>Spaces:</span> {{ course.spaces }}</p>
+                        <div class="course-rating">
+                            <span>Rating</span>
+                            <span class="full-star" v-for="n in course.rating">★</span>
+                            <span class="empty-star" v-for="n in 5 - course.rating">☆</span>
+                        </div>
                         <p class="course-price"><span>Price:</span> ${{ course.price }}</p>
                     </div>
                     <button 
