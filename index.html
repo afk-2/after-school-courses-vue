@@ -12,6 +12,7 @@
 </head>
 <body>
     <div id="app">
+        <!-- Header -->
         <header id="header">
             <div id="logo-container">
                 <img id="logo" src="images/afk-academy-high-resolution-logo-transparent.png">
@@ -25,6 +26,23 @@
                 <i class="cart-icon fa-solid fa-cart-shopping"></i>
             </div>
         </header>
+
+        <!-- Main Page -->
+        <main id="main-container">
+            <section id="courses-section">
+                <div class="course-container" v-for="course in courses" :key="course.id">
+                    <div class="course-thumbnail-container">
+                        <img class="course-thumbnail" :src="course.thumbnail" :alt="course.subject">
+                    </div>
+                    <div class="course-description">
+                        <p class="course-subject"><span>Subject:</span> {{ course.subject }}</p>
+                        <p class="course-location"><span>Location:</span> {{ course.location }}</p>
+                        <p class="course-spaces"><span>Spaces:</span> {{ course.spaces }}</p>
+                        <p class="course-price"><span>Price:</span> ${{ course.price }}</p>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
