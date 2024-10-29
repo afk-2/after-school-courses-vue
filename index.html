@@ -40,6 +40,12 @@
                         <p class="course-spaces"><span>Spaces:</span> {{ course.spaces }}</p>
                         <p class="course-price"><span>Price:</span> ${{ course.price }}</p>
                     </div>
+                    <button 
+                        class="add-button"
+                        v-on:click="addToCart(course.id)"
+                    >
+                        Add To Cart
+                    </button>
                 </div>
             </section>
         </main>
