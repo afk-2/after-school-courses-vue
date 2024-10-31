@@ -9,11 +9,11 @@ let app = new Vue({
     },
     methods: {
         addToCart: function(courseId) {
-            let course = this.courses.find(course => course.id === courseId);
+            let course = this.findCourse(courseId, this.courses);
         
             if (course) {
                 const newCourse = { ...course, quantity: 1 }; 
-                const existingCourse = this.cart.find(newCourse => newCourse.id === courseId);
+                const existingCourse = this.findCourse(newCourse.id, this.cart);
 
                 if (existingCourse) {
                     existingCourse.quantity++;
@@ -23,6 +23,32 @@ let app = new Vue({
                 
                 course.spaces--;
             }
+        },
+        removeFromCart: function(courseId) {
+            if (!courseId) {
+                return; 
+            }
+        
+            const index = this.cart.findIndex(item => item.id === courseId);
+        
+            if (index !== -1) {
+                const quantity = this.cart[index].quantity;
+                const originalCourse = this.findCourse(courseId, this.courses);
+
+                this.cart.splice(index, 1);
+
+                if (originalCourse) {
+                    originalCourse.spaces += quantity;
+                }
+            }
+        },
+        findCourse: function(courseId, array) {
+            const course = array.find(item => item.id === courseId);
+            return course;
+        },
+        findCourseId: function(courseId, array) {
+            const index = array.findIndex(item => item.id === courseId);
+            return index;
         },
         toggle_page: function() { 
             this.cartPage = !this.cartPage;

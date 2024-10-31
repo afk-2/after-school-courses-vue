@@ -94,7 +94,23 @@
                 </section>
             </div>
 
-            <div v-else>hi</div>
+            <div v-else id="cart-page">
+                <section id="courses-added">
+                    <div v-for="(course, index) in cart" :key="course.id" class="course-container">
+                        <figure>
+                            <img v-bind:src="course.thumbnail" class="course-thumbnail">
+                        </figure>
+    
+                        <div class="course-description">
+                            <p class="course-subject" v-text="course.subject"></p>
+                            <p class="course-price" v-text="course.price"></p>
+                            <p class="course-quantity" v-text="course.quantity"></p>
+                        </div>
+    
+                        <button v-on:click="removeFromCart(course.id)">Remove</button>
+                    </div>
+                </section>
+            </div>
         </main>
     </div>
 
