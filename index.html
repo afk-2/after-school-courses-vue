@@ -48,8 +48,27 @@
         <!-- Main Page -->
         <main id="main-container">
             <div v-if="!cartPage" id="homepage">
+
+                <h1 id="courses-title">Courses</h1>
+
+                <div id="sort">
+                    <label for="sort-attribute">Sort by:</label>
+                    <select id="sort-attribute" v-model="sortAttribute">
+                        <option value="subject">Subject</option>
+                        <option value="location">Location</option>
+                        <option value="price">Price</option>
+                        <option value="spaces">Spaces</option>
+                    </select>
+
+                    <label for="sort-order">Order:</label>
+                    <select id="sort-order" v-model="sortOrder">
+                        <option value="ascending">Ascending</option>
+                        <option value="descending">Descending</option>
+                    </select>
+                </div>
+
                 <section id="courses-section">
-                    <div class="course-container" v-for="course in courses" :key="course.id">
+                    <div class="course-container" v-for="course in sortedCourses" :key="course.id">
                         <div class="course-thumbnail-container">
                             <img class="course-thumbnail" :src="course.thumbnail" :alt="course.subject">
                         </div>
@@ -67,6 +86,7 @@
                         <button 
                             class="add-button"
                             v-on:click="addToCart(course.id)"
+                            :disabled="!canAddToCart(course)"
                         >
                             Add To Cart
                         </button>

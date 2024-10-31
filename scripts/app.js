@@ -4,6 +4,8 @@ let app = new Vue({
         cart: [],
         cartPage: false,
         courses: courses,
+        sortAttribute: 'subject',
+        sortOrder: 'ascending',
     },
     methods: {
         addToCart: function(courseId) {
@@ -32,6 +34,28 @@ let app = new Vue({
         },
         calculateCartQuantity: function() {
             return this.cart.reduce((total, cartItem) => total + cartItem.quantity, 0);
+        },
+        canAddToCart: function() {
+            return (course) => course.spaces > 0;
+        },
+        sortedCourses() {
+            let courses = this.courses.slice();
+            let modifier = this.sortOrder === 'ascending' ? 1 : -1;
+
+            return courses.sort((a, b) => {
+                let valA = a[this.sortAttribute];
+                let valB = b[this.sortAttribute];
+
+                if (typeof valA === 'number' && typeof valB === 'number') {
+                    return (valA - valB) * modifier;
+                }
+
+                if (typeof valA === 'string' && typeof valB === 'string') {
+                    return (valA > valB ? 1 : -1) * modifier;
+                }
+
+                return 0;
+            });
         }
     } 
 });
