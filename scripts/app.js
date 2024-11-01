@@ -6,6 +6,10 @@ let app = new Vue({
         courses: courses,
         sortAttribute: 'subject',
         sortOrder: 'ascending',
+        name: '',
+        phone: '',
+        formSubmitted: false,
+        formSubmittedMessage: ''
     },
     methods: {
         addToCart: function(courseId) {
@@ -52,6 +56,34 @@ let app = new Vue({
         },
         toggle_page: function() { 
             this.cartPage = !this.cartPage;
+        },
+        filterLetters: function(event) {
+            const input = event.target.value;
+            const regex = /^[a-zA-Z\s]*$/;
+
+            if (!regex.test(input)) {
+                event.target.value = input.replace(/[^a-zA-Z\s]/g, '');
+            }
+
+            this.name = event.target.value;
+        },
+        filterNumbers: function(event) {
+            const input = event.target.value;
+            const regex = /^[0-9]*$/;
+
+            if (!regex.test(input)) {
+                event.target.value = input.replace(/[^0-9]/g, '');
+            }
+
+            this.phone = event.target.value;
+        },
+        validateForm: function(event) {
+            event.preventDefault();
+
+            if (this.name && this.phone) {
+                this.formSubmitted = true;
+                this.formSubmittedMessage = 'Form Submitted!'
+            }
         }
     },
     computed: {

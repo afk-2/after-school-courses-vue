@@ -109,6 +109,20 @@
     
                         <button v-on:click="removeFromCart(course.id)">Remove</button>
                     </div>
+
+                    <!-- Checkout -->
+                <section id="checkout">
+                    <h1>Checkout</h1>
+
+                    <form>
+                        <label for="name">Name: </label>
+                        <input type="text" id="name" v-model="name" @input="filterLetters" placeholder="Enter your name" required>
+                        <label for="phone">Phone: </label>
+                        <input type="text" id="phone" v-model="phone" @input="filterNumbers" placeholder="Enter your phone number" required>
+                        <button id="submit-button" v-on:click="validateForm">Submit</button>
+                        <p v-text="formSubmittedMessage"></p>
+                    </form>
+                </section>
                 </section>
             </div>
         </main>
