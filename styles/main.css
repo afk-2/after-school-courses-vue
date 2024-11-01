@@ -14,6 +14,24 @@
     padding: 0 2.5rem; /* Padding for desktop */
 }
 
+@media (max-width: 1200px) {
+    #courses-section {
+        grid-template-columns: repeat(3, 1fr); /* Three columns for large tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    #courses-section {
+        grid-template-columns: repeat(2, 1fr); /* Two columns for small tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    #courses-section {
+        grid-template-columns: 1fr; /* Single column for mobile */
+    }
+}
+
 .course-container {
     position: relative;
 
