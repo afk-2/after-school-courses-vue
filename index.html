@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Reset and main stylesheets for styling -->
     <link rel="stylesheet" href="styles/reset.css">
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/main.css">
+
+    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <title>AFK Academy</title>
@@ -15,15 +18,24 @@
     <div id="app">
         <!-- Header -->
         <header id="header">
+
+            <!-- Logo -->
             <div id="logo-container">
                 <img id="logo" src="images/afk-academy-high-resolution-logo-transparent.png">
             </div>
+
+            <!-- Search Bar -->
             <div id="searchbar-container">
                 <input id="search-bar" type="text" placeholder="Search...">
                 <i class="search-icon fa-solid fa-magnifying-glass"></i>
             </div>
+
+            <!-- Cart Icon -->
             <div id="cart-icon-container">
+                <!-- Display the quantity of items in the cart -->
                 <p id="cart-count"> {{ calculateCartQuantity }}</p>
+
+                <!-- Link to toggle between cart page and homepage -->
                 <a 
                     v-if="!cartPage && cartItemCount > 0"
                     id="cart-link" 
@@ -39,7 +51,7 @@
                 >
                     <i class="cart-icon fa-solid fa-cart-shopping"></i>
                 </a>
-
+                <!-- Disabled link when cart is empty -->
                 <a v-else id="cart-link-disabled" href="javascript:void(0);">
                     <i class="cart-icon fa-solid fa-cart-shopping"></i>
                 </a>
@@ -48,10 +60,12 @@
 
         <!-- Main Page -->
         <main id="main-container">
+            <!-- Homepage: Display lessons -->
             <div v-if="!cartPage" id="homepage">
 
                 <h1 id="courses-title">Courses</h1>
 
+                <!-- Sorting -->
                 <div id="sort">
                     <label for="sort-attribute">Sort by:</label>
                     <select id="sort-attribute" v-model="sortAttribute">
@@ -68,15 +82,20 @@
                     </select>
                 </div>
 
+                <!-- Lessons List -->
                 <section id="courses-section">
                     <div class="course-container" v-for="course in sortedCourses" :key="course.id">
                         <div class="course-thumbnail-container">
                             <img class="course-thumbnail" :src="course.thumbnail" :alt="course.subject">
                         </div>
+
+                        <!-- Lesson Details -->
                         <div class="course-description">
                             <p class="course-subject"><span>Subject:</span> {{ course.subject }}</p>
                             <p class="course-location"><span>Location:</span> {{ course.location }}</p>
                             <p class="course-spaces"><span>Spaces:</span> {{ course.spaces }}</p>
+
+                            <!-- Display Star Ratings -->
                             <div class="course-rating">
                                 <span>Rating</span>
                                 <span class="full-star" v-for="n in course.rating">★</span>
@@ -84,6 +103,8 @@
                             </div>
                             <p class="course-price"><span>Price:</span> ${{ course.price }}</p>
                         </div>
+
+                        <!-- Add to Cart Button -->
                         <button 
                             class="add-button"
                             v-on:click="addToCart(course.id)"
@@ -95,7 +116,9 @@
                 </section>
             </div>
 
+            <!-- Cart Page -->
             <div v-else id="cart-page">
+                <!-- Display Added Lessons -->
                 <section id="courses-added">
                     <div v-for="(course, index) in cart" :key="course.id" class="course-container">
                         <figure>
@@ -108,18 +131,25 @@
                             <p class="course-quantity" v-text="course.quantity"></p>
                         </div>
     
+                        <!-- Remove Lesson Button -->
                         <button v-on:click="removeFromCart(course.id)">Remove</button>
                     </div>
 
-                    <!-- Checkout -->
+                    <!-- Checkout Section -->
                 <section id="checkout">
                     <h1>Checkout</h1>
 
+                    <!-- Form for User Details -->
                     <form>
                         <label for="name">Name: </label>
+                        <!-- Only allow letters for Name -->
                         <input type="text" id="name" v-model="name" @input="filterLetters" placeholder="Enter your name" required>
+
                         <label for="phone">Phone: </label>
+                        <!-- Only allow numbers for Phone -->
                         <input type="text" id="phone" v-model="phone" @input="filterNumbers" placeholder="Enter your phone number" required>
+
+                        <!-- Submit Button -->
                         <button id="submit-button" v-on:click="validateForm">Submit</button>
                         <p v-text="formSubmittedMessage"></p>
                     </form>
@@ -129,7 +159,9 @@
         </main>
     </div>
 
+    <!-- Vue.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+    <!-- External JavaScript Files -->
     <script src="scripts/courses.js"></script>
     <script src="scripts/app.js"></script>
 </body>
