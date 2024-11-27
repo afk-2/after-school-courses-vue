@@ -13,7 +13,7 @@ let app = new Vue({
     },
     methods: {
         fetchCourses: function() {
-            fetch("http://localhost:3000/collection/courses")
+            fetch("https://after-school-courses-express.onrender.com/collection/courses")
                 .then(response => {
                     if (!response.ok) {
                         throw new Error("Failed to fetch courses.");
