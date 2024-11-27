@@ -8,6 +8,8 @@ let app = new Vue({
         sortOrder: 'ascending',
         name: '',
         phone: '',
+        email: '',
+        address: '',
         formSubmitted: false,
         formSubmittedMessage: ''
     },
