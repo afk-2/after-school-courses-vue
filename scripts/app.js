@@ -97,9 +97,11 @@ let app = new Vue({
         validateForm: function(event) {
             event.preventDefault();
 
-            if (this.name && this.phone) {
+            if (this.name && this.email && this.phone && this.address) {
                 this.formSubmitted = true;
-                this.formSubmittedMessage = 'Form Submitted!'
+                this.formSubmittedMessage = 'Thank you! Your order has been placed.';
+            } else {
+                this.formSubmittedMessage = 'Please fill in all the fields.';
             }
         }
     },
