@@ -3,7 +3,7 @@ let app = new Vue({
     data: {
         cart: [],
         cartPage: false,
-        courses: courses,
+        courses: [],
         sortAttribute: 'subject',
         sortOrder: 'ascending',
         name: '',
@@ -12,6 +12,21 @@ let app = new Vue({
         formSubmittedMessage: ''
     },
     methods: {
+        fetchCourses: function() {
+            fetch("http://localhost:3000/collection/courses")
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch courses.");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    this.courses = data;
+                })
+                .catch(error => {
+                    console.error("Error fetching courses:", error);     
+                })
+        },
         addToCart: function(courseId) {
             let course = this.findCourse(courseId, this.courses);
         
@@ -115,5 +130,9 @@ let app = new Vue({
                 return 0;
             });
         }
-    } 
+    },
+    mounted() {
+        this.fetchCourses();
+    }
+    
 });
