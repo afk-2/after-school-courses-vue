@@ -98,11 +98,52 @@ let app = new Vue({
             event.preventDefault();
 
             if (this.name && this.email && this.phone && this.address) {
+                this.submitOrder();
                 this.formSubmitted = true;
                 this.formSubmittedMessage = 'Thank you! Your order has been placed.';
             } else {
                 this.formSubmittedMessage = 'Please fill in all the fields.';
             }
+        },
+        submitOrder: function(event) {
+            // Create the order object with the form data
+            const order = {
+                name: this.name,
+                email: this.email,
+                phone: this.phone,
+                address: this.address,
+                cart: this.cart,
+            }
+
+            // Send the order data to the back-end
+            fetch("http://localhost:3000/collection/orders", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(order),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to submit order.");
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Order submission successful:", data);
+                this.formSubmittedMessage = "Order placed successfully!";
+                this.cart = []; // Clear the cart after successful submission
+
+                //Reset Form Fields
+                this.name = '';
+                this.phone = '';
+                this.email = '';
+                this.address = '';
+            })
+            .catch(error => {
+                console.error("Error submitting order:", error);
+                this.formSubmittedMessage = "Failed to place order. Please try again.";
+            });
         }
     },
     computed: {
