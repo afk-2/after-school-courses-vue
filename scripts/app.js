@@ -130,8 +130,6 @@ let app = new Vue({
                 return response.json();
             })
             .then(data => {
-                console.log("Order submission successful:", data);
-                this.formSubmittedMessage = "Order placed successfully!";
                 this.cart = []; // Clear the cart after successful submission
 
                 //Reset Form Fields
@@ -144,7 +142,12 @@ let app = new Vue({
                 console.error("Error submitting order:", error);
                 this.formSubmittedMessage = "Failed to place order. Please try again.";
             });
+        },
+        closePopup: function() {
+            this.formSubmitted = false; // Close the popup
+            this.toggle_page(); // Redirect to homepage
         }
+        
     },
     computed: {
         cartItemCount: function() {

@@ -159,7 +159,16 @@
 
                         <!-- Submit Button -->
                         <button id="submit-button" v-on:click="validateForm">Submit</button>
-                        <p v-text="formSubmittedMessage"></p>
+
+                        <!-- Order Placed Popup -->
+                        <div id="success-popup" v-if="formSubmitted" class="popup">
+                            <div class="popup-content">
+                                <i class="fa-solid fa-check-circle success-icon"></i>
+                                <p class="success-message">Your order has been successfully placed!</p>
+                                <button class="popup-button" v-on:click="closePopup">Go to Homepage</button>
+                            </div>
+                        </div>
+
                     </form>
                 </section>
                 </section>
