@@ -147,7 +147,11 @@
                         <div class="course-description">
                             <p class="course-subject" v-text="course.subject"></p>
                             <p class="course-price" v-text="course.price"></p>
-                            <p class="course-quantity" v-text="course.quantity"></p>
+                            <p class="course-quantity">
+                                <button v-on:click="decrementQuantity(course.id)" :disabled="course.quantity <= 1">-</button>
+                                <span> {{course.quantity}} </span>
+                                <button v-on:click="incrementQuantity(course.id)" :disabled="course.spaces == 0">+</button>
+                            </p>
                         </div>
     
                         <!-- Remove Lesson Button -->

@@ -86,7 +86,7 @@ let app = new Vue({
                 const quantity = this.cart[index].quantity;
                 const originalCourse = this.findCourse(courseId, this.courses);
 
-                this.cart.splice(index, 1);
+                this.cart.splice(index, 1); // Remove the course entirely from the cart
 
                 if (originalCourse) {
                     originalCourse.spaces += quantity;
@@ -94,7 +94,7 @@ let app = new Vue({
             }
 
             if (!this.cartItemCount) {
-                this.toggle_page();
+                this.toggle_page(); // Go back to home page if the cart is empty
             }
         },
         findCourse: function(courseId, array) {
@@ -107,6 +107,28 @@ let app = new Vue({
         },
         toggle_page: function() { 
             this.cartPage = !this.cartPage;
+        },
+        incrementQuantity: function(courseId) {
+            let course = this.findCourse(courseId, this.cart);
+            
+            if (course && course.spaces > 0) {
+                course.quantity++; 
+                course.spaces--;   // Decrease spaces in the original course
+            }
+
+            // Reassign cart to trigger Vue reactivity
+            this.cart = [...this.cart];
+        },
+        decrementQuantity: function(courseId) {
+            let course = this.findCourse(courseId, this.cart);
+    
+            if (course && course.quantity > 1) {
+                course.quantity--;  // Decrease quantity
+                course.spaces++;    // Increase spaces in the original course
+            }
+
+            // Reassign cart to trigger Vue's reactivity
+            this.cart = [...this.cart];
         },
         filterLetters: function(event) {
             const input = event.target.value;
