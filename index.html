@@ -68,6 +68,10 @@
         <main id="main-container">
             <!-- Homepage: Display lessons -->
             <div v-if="!cartPage" id="homepage">
+                <!-- Courses Header -->
+                <h1 id="courses-title" v-if="!searchQuery">Courses</h1>
+                <h1 id="courses-title" v-else>Search Results</h1>
+                
                 <!-- Sorting -->
                 <div id="sort">
                     <label for="sort-attribute">Sort by:</label>
@@ -87,17 +91,12 @@
 
                 <!-- Lessons List -->
                 <section id="courses-section">
-                    <!-- Courses Header -->
-                    <h1 id="courses-title" v-if="!searchQuery">Courses</h1>
-                    <h1 id="courses-title" v-else>Search Results</h1>
-
-                    <!-- Courses List -->
                     <div class="course-container" v-for="course in (searchQuery ? searchResults : sortedCourses)" :key="course.id">
                         <div class="course-thumbnail-container">
                             <img class="course-thumbnail" :src="course.thumbnail" :alt="course.subject">
                         </div>
                         <div class="course-description">
-                            <p class="course-subject"><span>Subject:</span> {{ course.subject }}</p>
+                            <p class="course-subject"><span class="label">Subject:</span> {{ course.subject }}</p>
                             <p class="course-location"><span>Location:</span> {{ course.location }}</p>
                             <p class="course-spaces"><span>Spaces:</span> {{ course.spaces }}</p>
                             <div class="course-rating">
