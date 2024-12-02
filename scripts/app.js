@@ -63,13 +63,13 @@ let app = new Vue({
             let course = this.findCourse(courseId, this.courses);
         
             if (course) {
-                const newCourse = { ...course, quantity: 1 }; 
-                const existingCourse = this.findCourse(newCourse.id, this.cart);
+                const existingCourse = this.findCourse(course.id, this.cart);
 
                 if (existingCourse) {
                     existingCourse.quantity++;
                 } else {
-                    this.cart.push(newCourse);
+                    course.quantity = 1;
+                    this.cart.push(course);
                 }
                 
                 course.spaces--;
@@ -91,6 +91,10 @@ let app = new Vue({
                 if (originalCourse) {
                     originalCourse.spaces += quantity;
                 }
+            }
+
+            if (!this.cartItemCount) {
+                this.toggle_page();
             }
         },
         findCourse: function(courseId, array) {
