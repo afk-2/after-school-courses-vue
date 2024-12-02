@@ -71,7 +71,7 @@
                 <!-- Courses Header -->
                 <h1 id="courses-title" v-if="!searchQuery">Courses</h1>
                 <h1 id="courses-title" v-else>Search Results</h1>
-                
+
                 <!-- Sorting -->
                 <div id="sort">
                     <label for="sort-attribute">Sort by:</label>
@@ -96,15 +96,23 @@
                             <img class="course-thumbnail" :src="course.thumbnail" :alt="course.subject">
                         </div>
                         <div class="course-description">
-                            <p class="course-subject"><span class="label">Subject:</span> {{ course.subject }}</p>
-                            <p class="course-location"><span>Location:</span> {{ course.location }}</p>
-                            <p class="course-spaces"><span>Spaces:</span> {{ course.spaces }}</p>
+                            <p class="course-subject">
+                                <span class="course-label">Subject:</span> {{ course.subject }}
+                            </p>
+                            <p class="course-location">
+                                <span class="course-label">Location:</span> {{ course.location }}
+                            </p>
+                            <p class="course-spaces">
+                                <span class="course-label">Spaces:</span> {{ course.spaces }}
+                            </p>
                             <div class="course-rating">
-                                <span>Rating:</span>
+                                <span class="course-label">Rating:</span>
                                 <span class="full-star" v-for="n in course.rating">★</span>
                                 <span class="empty-star" v-for="n in 5 - course.rating">☆</span>
                             </div>
-                            <p class="course-price"><span>Price:</span> ${{ course.price }}</p>
+                            <p class="course-price">
+                                <span class="course-label">Price:</span> ${{ course.price }}
+                            </p>
                         </div>
                         <button 
                             class="add-button"

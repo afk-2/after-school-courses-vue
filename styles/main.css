@@ -133,18 +133,28 @@ body {
     flex-direction: column;
     justify-content: space-between;
 
+    padding: 0.5rem;
+
     height: 10rem;
     text-align: left;
     padding-bottom: 2rem;
 }
 
-.course-subject, .course-location, .course-spaces {
-    font-size: 0.95rem;
-    color: #555;
-    margin-bottom: 5px;
+.course-description .course-label {
+    font-weight: bold;
 }
 
+.course-subject, 
+.course-location, 
+.course-spaces,
+.course-price,
+.course-rating {
+    font-size: 0.95rem;
+    font-size: 0.95rem;
+    color: #555;
 
+    margin-bottom: 0.2rem;
+}
 
 .full-star,
 .empty-star {
