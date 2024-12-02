@@ -4,6 +4,9 @@ let app = new Vue({
         cart: [],
         cartPage: false,
         courses: [],
+        searchQuery: '', // Tracks the user's search input
+        searchResults: [], // Stores the search results
+        searching: false, // Indicates if a search is in progress
         sortAttribute: 'subject',
         sortOrder: 'ascending',
         name: '',
@@ -28,6 +31,33 @@ let app = new Vue({
                 .catch(error => {
                     console.error("Error fetching courses:", error);     
                 })
+        },
+        performSearch: function() {
+            this.searching = true; // Show loading indicator
+            console.log("Search Query:", this.searchQuery); // Debugging search input
+            if (this.searchQuery.trim() === '') {
+                this.searchResults = []; // Clear results for empty input
+                this.searching = false;
+                return;
+            }
+
+            fetch(`http://localhost:3000/search?q=${this.searchQuery}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch search results.");
+                    }
+                    return response.json()
+                })
+                .then(data => {
+                    console.log("Search Results:", data); // Debugging results
+                    this.searchResults = data; // Update search results
+                })
+                .catch(error => {
+                    console.error("Error fetching search results:", error);
+                })
+                .finally(() => {
+                    this.searching = false; // Hide loading indicator
+                });
         },
         addToCart: function(courseId) {
             let course = this.findCourse(courseId, this.courses);

@@ -26,7 +26,13 @@
 
             <!-- Search Bar -->
             <div id="searchbar-container">
-                <input id="search-bar" type="text" placeholder="Search...">
+                <input 
+                    id="search-bar" 
+                    type="text" 
+                    placeholder="Search..."
+                    v-model="searchQuery"
+                    @input="performSearch"
+                >
                 <i class="search-icon fa-solid fa-magnifying-glass"></i>
             </div>
 
@@ -62,9 +68,6 @@
         <main id="main-container">
             <!-- Homepage: Display lessons -->
             <div v-if="!cartPage" id="homepage">
-
-                <h1 id="courses-title">Courses</h1>
-
                 <!-- Sorting -->
                 <div id="sort">
                     <label for="sort-attribute">Sort by:</label>
@@ -84,27 +87,26 @@
 
                 <!-- Lessons List -->
                 <section id="courses-section">
-                    <div class="course-container" v-for="course in sortedCourses" :key="course.id">
+                    <!-- Courses Header -->
+                    <h1 id="courses-title" v-if="!searchQuery">Courses</h1>
+                    <h1 id="courses-title" v-else>Search Results</h1>
+
+                    <!-- Courses List -->
+                    <div class="course-container" v-for="course in (searchQuery ? searchResults : sortedCourses)" :key="course.id">
                         <div class="course-thumbnail-container">
                             <img class="course-thumbnail" :src="course.thumbnail" :alt="course.subject">
                         </div>
-
-                        <!-- Lesson Details -->
                         <div class="course-description">
                             <p class="course-subject"><span>Subject:</span> {{ course.subject }}</p>
                             <p class="course-location"><span>Location:</span> {{ course.location }}</p>
                             <p class="course-spaces"><span>Spaces:</span> {{ course.spaces }}</p>
-
-                            <!-- Display Star Ratings -->
                             <div class="course-rating">
-                                <span>Rating</span>
+                                <span>Rating:</span>
                                 <span class="full-star" v-for="n in course.rating">★</span>
                                 <span class="empty-star" v-for="n in 5 - course.rating">☆</span>
                             </div>
                             <p class="course-price"><span>Price:</span> ${{ course.price }}</p>
                         </div>
-
-                        <!-- Add to Cart Button -->
                         <button 
                             class="add-button"
                             v-on:click="addToCart(course.id)"
@@ -112,6 +114,16 @@
                         >
                             Add To Cart
                         </button>
+                    </div>
+
+                    <!-- Loading Indicator -->
+                    <div v-if="searching" id="loading">
+                        <p>Searching...</p>
+                    </div>
+
+                    <!-- No Results Message -->
+                    <div v-else-if="searchQuery && !searching && searchResults.length === 0">
+                        <p>No results found for "{{ searchQuery }}"</p>
                     </div>
                 </section>
             </div>
