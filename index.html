@@ -91,26 +91,26 @@
 
                 <!-- Lessons List -->
                 <section id="courses-section">
-                    <div class="course-container" v-for="course in (searchQuery ? searchResults : sortedCourses)" :key="course.id">
-                        <div class="course-thumbnail-container">
-                            <img class="course-thumbnail" :src="course.thumbnail" :alt="course.subject">
+                    <div class="home-course-container" v-for="course in (searchQuery ? searchResults : sortedCourses)" :key="course.id">
+                        <div class="home-course-thumbnail-container">
+                            <img class="home-course-thumbnail" :src="course.thumbnail" :alt="course.subject">
                         </div>
-                        <div class="course-description">
-                            <p class="course-subject">
+                        <div class="home-course-description">
+                            <p class="home-course-subject">
                                 <span class="course-label">Subject:</span> {{ course.subject }}
                             </p>
-                            <p class="course-location">
+                            <p class="home-course-location">
                                 <span class="course-label">Location:</span> {{ course.location }}
                             </p>
-                            <p class="course-spaces">
+                            <p class="home-course-spaces">
                                 <span class="course-label">Spaces:</span> {{ course.spaces }}
                             </p>
-                            <div class="course-rating">
+                            <div class="home-course-rating">
                                 <span class="course-label">Rating:</span>
                                 <span class="full-star" v-for="n in course.rating">★</span>
                                 <span class="empty-star" v-for="n in 5 - course.rating">☆</span>
                             </div>
-                            <p class="course-price">
+                            <p class="home-course-price">
                                 <span class="course-label">Price:</span> ${{ course.price }}
                             </p>
                         </div>
@@ -139,24 +139,33 @@
             <div v-else id="cart-page">
                 <!-- Display Added Lessons -->
                 <section id="courses-added">
-                    <div v-for="(course, index) in cart" :key="course.id" class="course-container">
+                    <div v-for="(course, index) in cart" :key="course.id" class="cart-course-container">
                         <figure>
-                            <img v-bind:src="course.thumbnail" class="course-thumbnail">
+                            <img v-bind:src="course.thumbnail" class="cart-course-thumbnail">
                         </figure>
     
-                        <div class="course-description">
-                            <p class="course-subject" v-text="course.subject"></p>
-                            <p class="course-price" v-text="course.price"></p>
-                            <p class="course-quantity">
-                                <button v-on:click="decrementQuantity(course.id)" :disabled="course.quantity <= 1">-</button>
+                        <div class="cart-course-description">
+                            <p class="cart-course-subject" v-text="course.subject"></p>
+                            <p class="cart-course-price">${{ course.price }}</p>
+                            <p class="cart-course-quantity">
+                                <button class="decrement-quantity" 
+                                    v-on:click="decrementQuantity(course.id)" 
+                                    :disabled="course.quantity <= 1">
+                                        -
+                                </button>
                                 <span> {{course.quantity}} </span>
-                                <button v-on:click="incrementQuantity(course.id)" :disabled="course.spaces == 0">+</button>
+                                <button class="increment-quantity" 
+                                    v-on:click="incrementQuantity(course.id)" 
+                                    :disabled="course.spaces == 0">
+                                        +
+                                </button>
                             </p>
                         </div>
     
                         <!-- Remove Lesson Button -->
-                        <button v-on:click="removeFromCart(course.id)">Remove</button>
+                        <button class="removeFromCart" v-on:click="removeFromCart(course.id)">Remove</button>
                     </div>
+                </section>
 
                     <!-- Checkout Section -->
                 <section id="checkout">
@@ -193,7 +202,6 @@
                         </div>
 
                     </form>
-                </section>
                 </section>
             </div>
         </main>
