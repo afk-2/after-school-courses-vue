@@ -41,7 +41,7 @@ let app = new Vue({
                 return;
             }
 
-            fetch(`http://localhost:3000/search?q=${this.searchQuery}`)
+            fetch(`https://after-school-courses-express.onrender.com/search?q=${this.searchQuery}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error("Failed to fetch search results.");
@@ -73,6 +73,7 @@ let app = new Vue({
                 }
                 
                 course.spaces--;
+                this.cart = [...this.cart];
             }
         },
         removeFromCart: function(courseId) {
@@ -172,7 +173,7 @@ let app = new Vue({
             }
 
             // Send the order data to the back-end
-            fetch("http://localhost:3000/collection/orders", {
+            fetch("https://after-school-courses-express.onrender.com/collection/orders", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
